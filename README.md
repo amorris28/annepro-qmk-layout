@@ -55,7 +55,7 @@ I like to symlink my git directory to the qmk keymap directory so that I can
 make edits in my personal git repo and then easily recompile in the qmk
 directory. But you could also just copy it.
 ```
-symlink -s my-qmk-layout annepro-qmk/keyboards/annepro2/keymaps/custom
+symlink -s annepro-qmk-layout annepro-qmk/keyboards/annepro2/keymaps/custom
 ```
 
 Change directory into the annepro-qmk directory and compile the custom layout:
