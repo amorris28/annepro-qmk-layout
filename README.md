@@ -48,7 +48,7 @@ git clone https://github.com/OpenAnnePro/qmk_firmware.git annepro-qmk --recursiv
 
 Clone this repo into a directory:
 ```
-git clone
+git clone https://github.com/amorris28/annepro-qmk-layout.git
 ```
 
 I like to symlink my git directory to the qmk keymap directory so that I can
@@ -85,12 +85,17 @@ cd ~/github
 git clone https://github.com/OpenAnnePro/annepro2-shine.git --recursive
 ```
 
-Change directory to the annepro2-shine directory and compile the firmware:
+Change directory to the annepro2-shine directory, compile the firmware,
+and move it to the AnnePro2 Tools directory:
 ```
+cd annepro2-shine
 make C18
+cp builds/annepro2-shine-C18.bin ../AnnePro2-Tools/target/release
+cd ../AnnePro2-Tools/target/release
 ```
 
-Do the same procedure to unplug, hold Esc, and replug. Alternatively, just keep it in IAP mode from the first time and then you can flash the firmware:
+Do the same procedure to unplug, hold Esc, and replug. Alternatively, just keep
+it in IAP mode from the first time and then you can flash the firmware:
 ```
 annepro2_tools --boot -t led build/annepro2-shine-C18.bin
 ```
