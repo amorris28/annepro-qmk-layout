@@ -97,7 +97,7 @@ cd ../AnnePro2-Tools/target/release
 Do the same procedure to unplug, hold Esc, and replug. Alternatively, just keep
 it in IAP mode from the first time and then you can flash the firmware:
 ```
-annepro2_tools --boot -t led build/annepro2-shine-C18.bin
+./annepro2_tools --boot -t led annepro2-shine-C18.bin
 ```
 
 After that, you should be good to go!
