@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd ../annepro-qmk
+make annepro2/c18:custom
+cp annepro2_c18_custom.bin ../AnnePro2-Tools/target/release
+cd ../AnnePro2-Tools/target/release
+./annepro2_tools annepro2_c18_custom.bin
+./annepro2_tools --boot -t led annepro2-shine-C18.bin
+
