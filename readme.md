@@ -7,98 +7,55 @@ way fn2 can take you to numbers and fn1 can take you to punctuation
 without having to hold down the shift key. ObinsKit doesn't make the Anne Pro
 fully customizable. QMK does!
 
+## Anne Pro 2 Model
+
+This assumes you have the C18 version of the Anne Pro 2, which you can determine by look at the bottom of your keyboard. If "Anne Pro" is printed inside the circle, then you're good to go. Otherwise, you will need to make some modifications.
+
 ## Setup
 
 You can follow the instructions on the [Open Anne Pro Install Instructions](https://openannepro.github.io/install/) page.
 
 Alternatively, here is a quick guide. You will need a second keyboard to flash the firmware:
 
-Install the dependencies:
+Install the dependencies including git, rustup, and the build requirements:
 ```
 sudo apt install gcc-arm-none-eabi binutils-arm-none-eabi git build-essential libusb-1.0-0-dev 
-```
-
-Install rustup:
-```
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-Make a directory to house everything:
+Make a directory to house everything and clone each of the necessary git repos including Anne Pro 2 Tools, the OpenAnnePro fork of the QMK firmware, AnnePro2 Shine, and my config:
 ```
 mkdir github
 cd github
-```
-
-Clone the AnnePro2-Tools git repo:
-```
 git clone https://github.com/OpenAnnePro/AnnePro2-Tools.git
+git clone https://github.com/OpenAnnePro/qmk_firmware.git annepro-qmk --recursive --depth 1
+git clone https://github.com/amorris28/annepro-qmk-layout.git
+git clone https://github.com/OpenAnnePro/annepro2-shine.git --recursive
 ```
 
-Change directory into the Anne Pro 2 Tools directory and build the tool:
+Build Anne Pro 2 Tools:
 ```
 cd AnnePro2-Tools
 cargo build --release
 cd ..
 ```
 
-Clone the OpenAnnePro fork of the QMK firmware:
-```
-git clone https://github.com/OpenAnnePro/qmk_firmware.git annepro-qmk --recursive --depth 1
-```
-
-Clone this repo into a directory:
-```
-git clone https://github.com/amorris28/annepro-qmk-layout.git
-```
-
-I like to symlink my git directory to the qmk keymap directory so that I can
-make edits in my personal git repo and then easily recompile in the qmk
-directory. But you could also just copy it.
-```
-symlink -s annepro-qmk-layout annepro-qmk/keyboards/annepro2/keymaps/custom
-```
-
-Change directory into the annepro-qmk directory and compile the custom layout:
-```
-cd annepro-qmk
-make annepro/c18:custom
-```
-Use "c18" if your keyboard has "Anne Pro" printed in the circle on the bottom of the keyboard. Otherwise, use "c15".
-
-Copy the compiled binary into the AnnePro2-Tools directory and change to that directory:
-```
-cp annepro2_c18_custom.bin ../AnnePro2-Tools/target/release
-cd ../AnnePro2-Tools/target/release
-```
-
-Now, use an on-screen keyboard or a second physical keyboard.
-Unplug the Anne Pro 2, hold down the Esc key, plug in the cable, then release the Esc key.
-Then, run this command:
-```
-./annepro2_tools annepro2_c18_custom.bin
-```
-
-It should run without failure. Then, you can install AnnePro2 Shine to get the LEDs working.
-First, return to our github directory and clone the repo:
-```
-cd ~/github
-git clone https://github.com/OpenAnnePro/annepro2-shine.git --recursive
-```
-
-Change directory to the annepro2-shine directory, compile the firmware,
-and move it to the AnnePro2 Tools directory:
+Build the Anne Pro 2 Shine binary:
 ```
 cd annepro2-shine
 make C18
 cp builds/annepro2-shine-C18.bin ../AnnePro2-Tools/target/release
-cd ../AnnePro2-Tools/target/release
 ```
 
-Do the same procedure to unplug, hold Esc, and replug. Alternatively, just keep
-it in IAP mode from the first time and then you can flash the firmware:
+I like to symlink my git directory to the qmk keymap directory so that I can
+make edits in my personal git repo and then easily recompile in the qmk
+directory. But you could also just create this directory and copy the files to it.
 ```
-./annepro2_tools --boot -t led annepro2-shine-C18.bin
+symlink -s annepro-qmk-layout annepro-qmk/keyboards/annepro2/keymaps/custom
 ```
 
-After that, you should be good to go!
+Now, put the Anne Pro 2 into IAP mode by unplugging it, holding down the Esc key, replugging it, and then releasing the escape key. Now, you can simply run the "reflash" script. This will build a binary from the custom keymap, flash the keyboard with the custom binary, flash the keyboard with AnnePro2 Shine, and reboot the keyboard.
+```
+annepro-qmk-layout/reflash
+```
 
