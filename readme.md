@@ -9,7 +9,10 @@ fully customizable. QMK does!
 
 ## Anne Pro 2 Model
 
-This assumes you have the C18 version of the Anne Pro 2, which you can determine by look at the bottom of your keyboard. If "Anne Pro" is printed inside the circle, then you're good to go. Otherwise, you will need to make some modifications.
+This assumes you have the C18 version of the Anne Pro 2, which you can
+determine by looking at the bottom of your keyboard. If "Anne Pro" is printed
+inside the circle, then you're good to go. Otherwise, you will need to make
+some modifications.
 
 ## Setup
 
