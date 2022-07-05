@@ -48,6 +48,7 @@ Build the Anne Pro 2 Shine binary:
 cd annepro2-shine
 make C18
 cp builds/annepro2-shine-C18.bin ../AnnePro2-Tools/target/release
+cd ..
 ```
 
 I like to symlink my git directory to the qmk keymap directory so that I can
